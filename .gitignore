@@ -29,3 +29,4 @@ Thumbs.db
 # ---- VS Code ----
 .vscode/*
 !.vscode/settings.json
+m0_reports/
