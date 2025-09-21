@@ -30,3 +30,4 @@ Thumbs.db
 .vscode/*
 !.vscode/settings.json
 m0_reports/
+backups/
