@@ -1,0 +1,30 @@
+[
+  {
+    "model": "core.section",
+    "pk": "c29e4244-a809-4a3e-9d93-fc050454d5b7",
+    "fields": {
+      "name": "ECDE"
+    }
+  },
+  {
+    "model": "core.section",
+    "pk": "7ee0d9b4-7887-410a-a06c-ff96188aba02",
+    "fields": {
+      "name": "Primary"
+    }
+  },
+  {
+    "model": "core.section",
+    "pk": "256f985f-dd47-4016-8ac1-47bec266199f",
+    "fields": {
+      "name": "Upper Primary"
+    }
+  },
+  {
+    "model": "core.section",
+    "pk": "7ff3cd33-594a-41ba-b9e6-0a8620b6e73d",
+    "fields": {
+      "name": "Junior Secondary"
+    }
+  }
+]

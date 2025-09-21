@@ -1,0 +1,141 @@
+[
+  {
+    "model": "core.academicyear",
+    "pk": "50ea72a7-d822-4eff-b5f0-8afc458fca50",
+    "fields": {
+      "name": "2025"
+    }
+  },
+  {
+    "model": "core.term",
+    "pk": "d81a8377-8824-4375-a1aa-fdc49c49a51b",
+    "fields": {
+      "number": 1,
+      "year": "50ea72a7-d822-4eff-b5f0-8afc458fca50"
+    }
+  },
+  {
+    "model": "core.term",
+    "pk": "538d0ecf-3664-4765-84f1-2ec709f00e18",
+    "fields": {
+      "number": 2,
+      "year": "50ea72a7-d822-4eff-b5f0-8afc458fca50"
+    }
+  },
+  {
+    "model": "core.term",
+    "pk": "673dd63b-171d-49af-b2e8-f2cfcd601cd9",
+    "fields": {
+      "number": 3,
+      "year": "50ea72a7-d822-4eff-b5f0-8afc458fca50"
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "2be83eaf-adf3-40be-b326-93a73d4c4864",
+    "fields": {
+      "section": "ECDE",
+      "name": "Playgroup",
+      "order": 1
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "bd084de4-5386-43d1-84c3-0148db25cb4f",
+    "fields": {
+      "section": "ECDE",
+      "name": "PP1",
+      "order": 2
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "4a477c75-4f8d-4a8f-8c12-e056799bd5d6",
+    "fields": {
+      "section": "ECDE",
+      "name": "PP2",
+      "order": 3
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "91316abb-0120-4d58-bbb1-64a4af0442cd",
+    "fields": {
+      "section": "LOWER",
+      "name": "Grade 1",
+      "order": 1
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "6aac7cc1-f201-48d1-8078-48577f7dcd25",
+    "fields": {
+      "section": "LOWER",
+      "name": "Grade 2",
+      "order": 2
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "b84d4e66-1b63-4197-9478-ac526f771970",
+    "fields": {
+      "section": "LOWER",
+      "name": "Grade 3",
+      "order": 3
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "4b4ed6b6-40ed-43b4-8e66-955a1d5080ec",
+    "fields": {
+      "section": "UPPER",
+      "name": "Grade 4",
+      "order": 1
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "238c7199-cf02-4071-b815-c5403e43600e",
+    "fields": {
+      "section": "UPPER",
+      "name": "Grade 5",
+      "order": 2
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "b8f4b4d4-2012-4511-af29-a4353b78203e",
+    "fields": {
+      "section": "UPPER",
+      "name": "Grade 6",
+      "order": 3
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "06f5ea53-883e-4368-b89f-234385d14f96",
+    "fields": {
+      "section": "JUNIOR",
+      "name": "Grade 7",
+      "order": 1
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "98a54449-c766-43f7-af2b-dc2acdd9c9b0",
+    "fields": {
+      "section": "JUNIOR",
+      "name": "Grade 8",
+      "order": 2
+    }
+  },
+  {
+    "model": "core.classlevel",
+    "pk": "b750ca73-3224-4e81-a0fe-fb9830578bc7",
+    "fields": {
+      "section": "JUNIOR",
+      "name": "Grade 9",
+      "order": 3
+    }
+  }
+]
