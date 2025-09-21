@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
+from django.contrib.auth import get_user_model
 
 MONEY = dict(max_digits=12, decimal_places=2)
 
@@ -9,6 +10,20 @@ class UUIDModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     class Meta:
         abstract = True
+
+# --- Roles & User Profile ---
+ROLES = [
+    ('DIRECTOR', 'Director'),
+    ('HEAD', 'Head Teacher'),
+    ('DEPUTY', 'Deputy Head'),
+    ('CASHIER', 'Cashier'),
+]
+
+class UserProfile(UUIDModel):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    role = models.CharField(max_length=12, choices=ROLES, null=True, blank=True)
+    def __str__(self):
+        return f"{self.user.username} ({self.role or 'UNASSIGNED'})"
 
 class ClassLevel(UUIDModel):
     SECTION = [
