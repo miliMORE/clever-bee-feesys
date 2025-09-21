@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Signed out · Clever Bee{% endblock %}
+{% block content %}
+<div class="container" style="max-width:480px;margin-top:3rem">
+  <h2>Signed out</h2>
+  <p>You have been signed out.</p>
+  <a href="{% url 'login' %}" class="btn btn-secondary">Sign in again</a>
+</div>
+{% endblock %}

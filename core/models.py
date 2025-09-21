@@ -2,7 +2,6 @@ import uuid
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
-from django.contrib.auth import get_user_model
 
 MONEY = dict(max_digits=12, decimal_places=2)
 
@@ -38,11 +37,15 @@ class ClassLevel(UUIDModel):
     class Meta:
         unique_together = ('section', 'name')
         ordering = ['section', 'order']
+        verbose_name_plural = 'Class levels'
     def __str__(self): return f"{self.get_section_display()} - {self.name}"
 
 class AcademicYear(UUIDModel):
     name = models.CharField(max_length=9, unique=True)  # e.g. "2025"
-    class Meta: ordering = ['-name']
+    class Meta:
+        ordering = ['-name']
+        verbose_name = 'Academic year'
+        verbose_name_plural = 'Academic years'
     def __str__(self): return self.name
 
 class Term(UUIDModel):
@@ -53,6 +56,7 @@ class Term(UUIDModel):
     class Meta:
         unique_together = ('year', 'number')
         ordering = ['year__name', 'number']
+        verbose_name_plural = 'Terms'
     def __str__(self): return f"{self.year.name} T{self.number}"
 
 class Student(UUIDModel):
@@ -82,7 +86,9 @@ class Student(UUIDModel):
     boarding_status = models.CharField(max_length=10, choices=BOARDING, default='DAY')
     status = models.CharField(max_length=12, choices=STATUS, default='ACTIVE')
 
-    class Meta: ordering = ['last_name', 'first_name']
+    class Meta:
+        ordering = ['last_name', 'first_name']
+        verbose_name_plural = 'Students'
     def __str__(self): return f"{self.admission_no} - {self.last_name}, {self.first_name}"
 
 class FeeStructure(UUIDModel):
@@ -93,6 +99,8 @@ class FeeStructure(UUIDModel):
     amount_kes = models.DecimalField(**MONEY, validators=[MinValueValidator(0)])
     class Meta:
         unique_together = ('term', 'class_level', 'boarding_status')
+        verbose_name = 'Fee structure'
+        verbose_name_plural = 'Fee structures'
     def __str__(self): return f"{self.term} {self.class_level.name} {self.boarding_status}: {self.amount_kes}"
 
 class LedgerEntry(UUIDModel):
@@ -115,6 +123,8 @@ class LedgerEntry(UUIDModel):
     class Meta:
         indexes = [models.Index(fields=['student','term']), models.Index(fields=['date'])]
         ordering = ['-date','-created_at']
+        verbose_name = 'Ledger entry'
+        verbose_name_plural = 'Ledger entries'
     def __str__(self): return f"{self.entry_type} {self.amount_kes} {self.student.admission_no} {self.term}"
 
 class Payment(UUIDModel):
@@ -131,6 +141,7 @@ class Payment(UUIDModel):
     reference = models.CharField(max_length=64, blank=True)
     class Meta:
         indexes = [models.Index(fields=['student','term','date'])]
+        verbose_name_plural = 'Payments'
     def __str__(self): return f"{self.date} {self.mode} {self.amount_kes} {self.student.admission_no}"
 
 class PaymentEditLog(UUIDModel):
@@ -138,6 +149,9 @@ class PaymentEditLog(UUIDModel):
     edited_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     edited_at = models.DateTimeField(auto_now_add=True)
     change_summary = models.JSONField(null=True, blank=True)
+    class Meta:
+        verbose_name = 'Payment edit log'
+        verbose_name_plural = 'Payment edit logs'
 
 class ImportBatch(UUIDModel):
     CHANNEL = [('BANK','Bank'), ('MPESA','M-Pesa')]
@@ -147,6 +161,9 @@ class ImportBatch(UUIDModel):
     imported_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     imported_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS, default='PENDING')
+    class Meta:
+        verbose_name = 'Import batch'
+        verbose_name_plural = 'Import batches'
 
 class ImportRow(UUIDModel):
     batch = models.ForeignKey('ImportBatch', on_delete=models.CASCADE, related_name='rows')
@@ -161,6 +178,8 @@ class ImportRow(UUIDModel):
     posted_entry = models.ForeignKey('LedgerEntry', null=True, blank=True, on_delete=models.SET_NULL, related_name='import_rows')
     class Meta:
         indexes = [models.Index(fields=['reference']), models.Index(fields=['payer_phone'])]
+        verbose_name = 'Import row'
+        verbose_name_plural = 'Import rows'
 
 class NeedsReview(UUIDModel):
     import_row = models.ForeignKey('ImportRow', on_delete=models.CASCADE, related_name='reviews')
@@ -168,6 +187,9 @@ class NeedsReview(UUIDModel):
     notes = models.TextField(blank=True)
     resolved_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
     resolved_at = models.DateTimeField(null=True, blank=True)
+    class Meta:
+        verbose_name = 'Needs review'
+        verbose_name_plural = 'Needs reviews'
 
 class Expense(UUIDModel):
     MODE = Payment.MODE
@@ -178,6 +200,8 @@ class Expense(UUIDModel):
     mode = models.CharField(max_length=10, choices=MODE)
     term = models.ForeignKey('Term', on_delete=models.PROTECT, related_name='expenses')
     notes = models.TextField(blank=True)
+    class Meta:
+        verbose_name_plural = 'Expenses'
 
 class Budget(UUIDModel):
     term = models.ForeignKey('Term', on_delete=models.CASCADE, related_name='budgets')
@@ -185,6 +209,7 @@ class Budget(UUIDModel):
     amount_kes = models.DecimalField(**MONEY, validators=[MinValueValidator(0)])
     class Meta:
         unique_together = ('term','category')
+        verbose_name_plural = 'Budgets'
 
 class AuditLog(UUIDModel):
     actor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
@@ -193,4 +218,7 @@ class AuditLog(UUIDModel):
     entity_id = models.CharField(max_length=64)
     meta = models.JSONField(null=True, blank=True)
     at = models.DateTimeField(auto_now_add=True)
-    class Meta: ordering = ['-at']
+    class Meta:
+        ordering = ['-at']
+        verbose_name = 'Audit log'
+        verbose_name_plural = 'Audit logs'
