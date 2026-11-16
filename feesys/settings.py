@@ -1,9 +1,19 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'dev-insecure-please-change-in-prod'  # Dev only
 DEBUG = True
+
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "").strip()
+if not SECRET_KEY:
+    if DEBUG:
+        SECRET_KEY = "django-insecure-dev-only-not-for-production"
+    else:
+        raise RuntimeError(
+            "DJANGO_SECRET_KEY must be set when DEBUG is False."
+        )
+
 ALLOWED_HOSTS: list[str] = []
 
 INSTALLED_APPS = [

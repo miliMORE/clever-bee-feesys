@@ -44,6 +44,9 @@ python -m venv .venv
 # Windows: .\.venv\Scripts\activate
 # Unix:    source .venv/bin/activate
 pip install -r requirements.txt
+# Set DJANGO_SECRET_KEY (copy .env.example to .env, or export it in your shell).
+# Generate a key with:
+#   python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 python manage.py migrate
 python manage.py loaddata fixtures/sections.json   # optional
 # optional: fixtures/initial_year_terms_levels.json
