@@ -59,11 +59,14 @@ python manage.py runserver
 
 ## Deploy (Railway)
 
-`Procfile` and `railway.json` start the app by running, in order:
+`railway.json` `preDeployCommand` runs in a separate container before the app starts:
 
-1. `python manage.py migrate --noinput`
-2. `python manage.py collectstatic --noinput`
-3. `gunicorn feesys.wsgi:application --bind 0.0.0.0:$PORT`
+`python manage.py migrate --noinput && python manage.py create_demo_users`
+
+Filesystem changes from that container are not kept. `Procfile` and `railway.json` `startCommand` therefore still collect static files, then start gunicorn:
+
+1. `python manage.py collectstatic --noinput`
+2. `gunicorn feesys.wsgi:application --bind 0.0.0.0:$PORT`
 
 Set these environment variables on the service. Do not commit real values.
 
