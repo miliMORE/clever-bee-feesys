@@ -6,7 +6,7 @@ Django fee management system for **Clever Bee Academy** (Kenya). Tracks students
 
 ## Stack
 
-- Python + **Django 5.1.***
+- Python + **Django 5.1.x**
 - UUID primary keys; `Decimal(12,2)` money fields
 - Django admin + simple auth UX (`/accounts/login/`)
 - Fixtures for sections / year-term-levels
