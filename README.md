@@ -2,7 +2,7 @@
 
 Django fee management system for **Clever Bee Academy** (Kenya). Tracks students, term fee structures, payments, ledger entries, bank/M-Pesa import batches, expenses, and budgets — with role-based staff access.
 
-**Current milestone:** M3 (auth, groups, permissions, demo users) per `PROJECT_STATE.md`.
+**Current milestone:** M4 (deputy console) in progress, not built yet. See `PROJECT_STATE.md`.
 
 ## Stack
 
@@ -66,4 +66,4 @@ scripts/    helper scripts
 
 ## Status / roadmap notes
 
-Milestones documented in-repo: `M2_README.md` (domain skeleton), `M3_README.txt` / `M3B_README.txt` (auth & UX). Do not invent unbuilt M4+ features — see `PROJECT_STATE.md`.
+Milestones documented in-repo: `docs/history/M2_README.md` (domain skeleton), `docs/history/M3_README.txt` / `docs/history/M3B_README.txt` (auth & UX). Do not invent unbuilt M4+ features — see `PROJECT_STATE.md`.
