@@ -1,7 +1,7 @@
 # Project State — Clever Bee Fees System
-CURRENT_MILESTONE: M3
-LAST_VERIFIED: (Enter today’s date)
+CURRENT_MILESTONE: M4
+LAST_VERIFIED: (20/oct/2025)
 NOTES:
-- The project has progressed through M0, M1, and M2.
+- The project has progressed through M0, M1, M2 and M3.
 - Codex and ChatGPT must operate strictly based on this milestone.
-- Do not proceed to M4 until M3 is verified and confirmed.
+- Do not proceed to M5 until M4 is verified and confirmed.
