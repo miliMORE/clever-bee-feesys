@@ -47,6 +47,7 @@ python -m venv .venv
 # Unix:    source .venv/bin/activate
 pip install -r requirements.txt
 # Set DJANGO_SECRET_KEY (copy .env.example to .env, or export it in your shell).
+# Django does not read .env by itself. For local runserver, set DEBUG=true.
 # Generate a key with:
 #   python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 python manage.py migrate
@@ -55,6 +56,27 @@ python manage.py loaddata fixtures/sections.json   # optional
 python manage.py createsuperuser   # or create_demo_users
 python manage.py runserver
 ```
+
+## Deploy (Railway)
+
+`Procfile` and `railway.json` start the app by running, in order:
+
+1. `python manage.py migrate --noinput`
+2. `python manage.py collectstatic --noinput`
+3. `gunicorn feesys.wsgi:application --bind 0.0.0.0:$PORT`
+
+Set these environment variables on the service. Do not commit real values.
+
+- `DJANGO_SECRET_KEY` — required when `DEBUG` is off. Long random string.
+- `DEBUG` — leave unset or `false` in production. Truthy values are `1`, `true`, `yes`, and `on` (any case). The default is off.
+- `ALLOWED_HOSTS` — comma-separated hostnames, such as the Railway domain. Required when `DEBUG` is off.
+- `CSRF_TRUSTED_ORIGINS` — comma-separated origins with scheme, such as `https://your-app.up.railway.app`.
+- `DATABASE_URL` — Railway Postgres URL. When it is unset, the app uses sqlite at `db.sqlite3`.
+- `PORT` — set by Railway. gunicorn binds to it.
+
+`GET /healthz` does not require a login. After `SELECT 1` succeeds it returns HTTP 200 and `{"status":"ok"}`. If that database check fails it returns HTTP 503.
+
+WhiteNoise serves the collected static files. `staticfiles/` is gitignored.
 
 ## Project layout
 
