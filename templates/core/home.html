@@ -1,5 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
+{% block heading %}
+  <img class="crest" src="{% static 'img/cba-logo.png' %}" alt="Clever Bee Academy crest">
+  <h1>Clever Bee Academy Fees System</h1>
+{% endblock %}
 {% block content %}
-  <p class="ok">Blueprint-compliant M2 build is installed.</p>
-  <p>Time zone: <strong>Africa/Nairobi</strong>. Locale: <strong>en-ke</strong>.</p>
+  {% if user.is_authenticated %}
+    {% if user.is_staff %}
+      <a class="action" href="{% url 'admin:index' %}">Dashboard</a>
+    {% else %}
+      <a class="action" href="{% url 'home' %}">Dashboard</a>
+    {% endif %}
+  {% else %}
+    <a class="action" href="{% url 'login' %}">Log in</a>
+  {% endif %}
 {% endblock %}

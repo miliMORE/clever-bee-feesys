@@ -94,6 +94,45 @@ class CreateDemoUsersTests(TestCase):
         self.assertIsNotNone(authenticate(username='cashier', password=DEFAULT_PASSWORD))
 
 
+class HomePageTests(TestCase):
+    def test_anonymous_home_has_login_link(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Clever Bee Academy Fees System')
+        self.assertContains(response, 'cba-logo.png')
+        self.assertContains(response, '/accounts/login/')
+        self.assertContains(response, 'Log in')
+        self.assertNotContains(response, 'Blueprint-compliant M2 build is installed.')
+        self.assertNotContains(response, 'Dashboard')
+
+    def test_staff_home_links_to_dashboard(self):
+        user = get_user_model().objects.create_user(
+            username='staffer',
+            password='staff-pass',
+            is_staff=True,
+        )
+        self.client.force_login(user)
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'href="/admin/"')
+        self.assertContains(response, 'Dashboard')
+        self.assertNotContains(response, '/accounts/login/')
+
+    def test_nonstaff_home_links_to_home_dashboard(self):
+        user = get_user_model().objects.create_user(
+            username='guardian',
+            password='guardian-pass',
+            is_staff=False,
+        )
+        self.client.force_login(user)
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'href="/"')
+        self.assertContains(response, 'Dashboard')
+        self.assertNotContains(response, '/accounts/login/')
+        self.assertNotContains(response, '/admin/')
+
+
 class HealthzTests(TestCase):
     def test_healthz_returns_ok_when_database_responds(self):
         response = self.client.get('/healthz')

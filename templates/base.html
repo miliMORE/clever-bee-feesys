@@ -9,11 +9,15 @@
     .card{max-width:760px;margin:0 auto;background:#111827;border:1px solid #1f2937;border-radius:16px;padding:24px}
     h1{margin:0 0 12px 0;font-size:1.5rem}
     .ok{display:inline-block;background:#065f46;color:#ecfdf5;padding:.25rem .5rem;border-radius:.5rem;font-weight:600}
+    .crest{display:block;width:96px;height:auto;margin:0 0 16px 0}
+    .action{display:inline-block;margin-top:8px;background:#fbbf24;color:#111827;text-decoration:none;font-weight:700;padding:.55rem .9rem;border-radius:.5rem}
   </style>
 </head>
 <body>
   <div class="card">
+    {% block heading %}
     <h1>Clever Bee Fees System</h1>
+    {% endblock %}
     {% block content %}{% endblock %}
   </div>
 </body>
