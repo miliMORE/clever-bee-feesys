@@ -59,14 +59,16 @@ python manage.py runserver
 
 ## Deploy (Railway)
 
-`railway.json` `preDeployCommand` runs in a separate container before the app starts:
+`railway.json` `preDeployCommand` (and the Railway service setting) is:
 
 `python manage.py migrate --noinput && python manage.py create_demo_users`
 
-Filesystem changes from that container are not kept. `Procfile` and `railway.json` `startCommand` therefore still collect static files, then start gunicorn:
+On this Railway Railpack/V2 service that pre-deploy command was set but not executed, so `Procfile` and `railway.json` `startCommand` also run migrate and create_demo_users. `create_demo_users` is create-only, so a second run is safe and does not reset passwords. collectstatic stays in the start command because pre-deploy filesystem changes are not kept:
 
-1. `python manage.py collectstatic --noinput`
-2. `gunicorn feesys.wsgi:application --bind 0.0.0.0:$PORT`
+1. `python manage.py migrate --noinput`
+2. `python manage.py create_demo_users`
+3. `python manage.py collectstatic --noinput`
+4. `gunicorn feesys.wsgi:application --bind 0.0.0.0:$PORT`
 
 Set these environment variables on the service. Do not commit real values.
 
