@@ -1,3 +1,5 @@
+![Clever Bee Academy crest](static/img/cba-logo.png)
+
 # Clever Bee Fee System
 
 Django fee management system for **Clever Bee Academy** (Kenya). Tracks students, term fee structures, payments, ledger entries, bank/M-Pesa import batches, expenses, and budgets — with role-based staff access.
